@@ -1,0 +1,7 @@
+This is a Web tool for visualising data structures.
+
+=== Get started
+
+Start by installing dsvis' npm dependencies with `npm install`.
+Then, you can run a local development instance with `npm run serve`.
+To build a `bundle.js` file for production use, run `npm run build`.
