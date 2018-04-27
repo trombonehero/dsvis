@@ -1,0 +1,38 @@
+{
+  "name": "dsavis",
+  "version": "0.0.1",
+  "description": "Tool for visualizing data structures and algorithms",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "serve": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch"
+  },
+  "keywords": [],
+  "author": "Jonathan Anderson <jonathan.anderson@mun.ca>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "coffee-loader": "^0.9.0",
+    "coffeescript": "^2.2.4",
+    "css-loader": "^0.28.11",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.0.2",
+    "less-loader": "^4.1.0",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "tls": "0.0.1",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15",
+    "webpack-dev-server": "^3.1.3"
+  },
+  "dependencies": {
+    "cytoscape": "^3.2.11",
+    "cytoscape-dagre": "^2.2.1",
+    "golden-layout": "^1.5.9",
+    "jquery": "^3.3.1"
+  }
+}
