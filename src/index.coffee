@@ -2,7 +2,11 @@ require './html-style.sass'
 
 $ = require 'jquery'
 
-cytoscape_graph = require './cytoscape.coffee'
+cytoscape = require 'cytoscape'
+cydagre = require 'cytoscape-dagre'
+cydagre cytoscape
+
+linkedlist = require './linkedlist.coffee'
 
 GoldenLayout = require 'golden-layout'
 require 'golden-layout/src/less/goldenlayout-base.less'
@@ -21,7 +25,15 @@ gl = new GoldenLayout({
   }]
 })
 
-gl.on 'initialised', () -> cy = window.cy = new cytoscape_graph $('.graph')
+gl.on 'initialised', () ->
+  cy = window.cy = new cytoscape {
+    container: $('.graph'),
+    boxSelectionEnabled: false,
+    autounselectify: true,
+    style: require('./graph-style'),
+  }
+
+  cy.resize()
 
 gl.registerComponent 'graph', (container, _) ->
   container.setTitle 'Graph'
