@@ -11,22 +11,22 @@ module.exports = [
       'color': outlineColor,
       'content': 'data(id)',
       'font-size': '18pt',
+      'label': 'data(label)',
       'shape': 'rectangle',
       'width': '4em',
       'text-valign': 'center',
       'text-halign': 'center',
       'text-outline-color': primaryColor,
       'text-outline-width': '1px',
+      'text-wrap': 'wrap',
     }
   },
-  ###
   {
-    selector: 'node[data(root)]',
+    selector: '$node > node',
     style: {
-      'background-color': 'red',
+      'background-opacity': 0.25,
     }
   },
-  ###
   {
     selector: 'edge',
     style: {
