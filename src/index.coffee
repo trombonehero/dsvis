@@ -18,8 +18,9 @@ gl = new GoldenLayout({
   content: [{
     type: 'column',
     content: [
+      { type: 'component', componentName: 'header', height: 5 },
       { type: 'component', componentName: 'graph' },
-      { type: 'component', componentName: 'bottom' },
+      { type: 'component', componentName: 'bottom', height: 2 },
     ]
   }]
 })
@@ -33,6 +34,10 @@ gl.on 'initialised', () ->
   }
 
   cy.resize()
+
+gl.registerComponent 'header', (container, _) ->
+  container.setTitle 'Header'
+  header = container.getElement().html '<h1>Data structure visualizer</h1>'
 
 gl.registerComponent 'graph', (container, _) ->
   container.setTitle 'Graph'
@@ -93,7 +98,6 @@ gl.registerComponent 'bottom', (container, _) ->
     layout(dir = 'TB')
 
   gl.on 'initialised', () ->
-    container.setSize 0, 28
     cy.resize() if cy
 
 gl.init()
