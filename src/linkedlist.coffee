@@ -5,15 +5,17 @@
 # `cy`::
 #   A Cytoscape graph
 #
+# `doubly_linked`::
+#   Whether this will be a doubly-linked list (alternative: singly-linked)
+#
 # ## Methods:
 #
-# `add_linked(doubly_linked = true)`::
+# `add_linked()`::
 #   Add a new node to a linked list. If the graph currently has no nodes,
 #   a new (empty) node will be added. Otherwise, a new node will be added with
-#   an auto-incrementing ID and `next` and `prev` pointers will be created
-#   (if `doubly_linked` is `false`, only `next` will be created).
+#   an auto-incrementing ID and `next` [and `prev`] pointer[s] will be created.
 #
-module.exports = (cy) ->
+module.exports = (cy, doubly_linked = true) ->
   n = 0
   roots =
     first: null
@@ -32,7 +34,7 @@ module.exports = (cy) ->
     last: add_node 'last', meta_node.id()
 
   {
-    add_linked: (doubly_linked = true) ->
+    add_linked: () ->
       node = add_node n
       id = node.id()
 
