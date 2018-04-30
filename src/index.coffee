@@ -58,10 +58,6 @@ gl.registerComponent 'bottom', (container, _) ->
     cy.add_linked() for i in [0..8]
     layout(dir = 'LR')
 
-  bottom.append button 'Add linked', (ev) ->
-    cy.add_linked()
-    layout()
-
   b = bottom.append button 'Tree', (ev) ->
     cy.add_node(i) for i in [0..12]
     cy.add_edge(0, 1)
