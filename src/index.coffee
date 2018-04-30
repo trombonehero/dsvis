@@ -3,8 +3,7 @@ require './html-style.sass'
 $ = require 'jquery'
 
 cytoscape = require 'cytoscape'
-cydagre = require 'cytoscape-dagre'
-cydagre cytoscape
+require('cytoscape-klay')(cytoscape)
 
 linkedlist = require './linkedlist.coffee'
 
@@ -46,13 +45,27 @@ button = (label, callback) ->
   b
 
 layout = (dir = 'LR') ->
-  cy.layout({ name: 'dagre', rankDir: dir, animate: true }).run()
+  cy.layout({
+    name: 'klay'
+    animate: true
+    nodeDimensionsIncludeLabels: true
+    klay: {
+      direction: 'RIGHT'
+      edgeRouting: 'SPLINES'
+      edgeSpacingFactor: 0.1
+      feedbackEdges: true
+      cycleBreaking: 'INTERACTIVE'
+      inLayerSpacingFactor: 0.5
+      layoutHierarchy: true
+      nodePlacement: 'SIMPLE'
+      thoroughness: 9
+    }
+  }).run()
 
 gl.registerComponent 'bottom', (container, _) ->
   bottom = container.getElement()
 
-  bottom.append button 'LR', (ev) -> layout(dir = 'LR')
-  bottom.append button 'TB', (ev) -> layout(dir = 'TB')
+  bottom.append button 'Auto-layout graph', (ev) -> layout()
 
   bottom.append button 'Linked list', (ev) ->
     cy.add_linked() for i in [0..8]
