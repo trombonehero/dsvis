@@ -68,7 +68,8 @@ gl.registerComponent 'bottom', (container, _) ->
   bottom.append button 'Auto-layout graph', (ev) -> layout()
 
   bottom.append button 'Linked list', (ev) ->
-    cy.add_linked() for i in [0..8]
+    l = new linkedlist(cy)
+    l.add_node() for i in [0..8]
     layout(dir = 'LR')
 
   b = bottom.append button 'Tree', (ev) ->
