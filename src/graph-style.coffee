@@ -1,4 +1,5 @@
 primaryColor = '#66ccff'
+metaColor = '#ffcc66'
 outlineColor = '#003366'
 
 module.exports = [
@@ -21,6 +22,13 @@ module.exports = [
       'text-outline-color': primaryColor
       'text-outline-width': '1px'
       'text-wrap': 'wrap'
+  },
+  # Metadata nodes (e.g., begin/end pointers)
+  {
+    selector: 'node.metadata'
+    style:
+      'background-color': metaColor
+      'text-outline-color': metaColor
   },
   # Compound nodes
   {

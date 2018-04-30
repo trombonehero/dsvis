@@ -21,17 +21,23 @@ module.exports = (cy, doubly_linked = true) ->
     first: null
     last: null
 
-  add_node = (label, parent = null) ->
-    cy.add { group: 'nodes', data: { label: label, parent: parent }}
+  add_node = (label, classes, parent = null) ->
+    cy.add {
+      group: 'nodes'
+      classes: classes
+      data:
+        label: label
+        parent: parent
+    }
 
   add_edge = (src, dst, label = '') ->
     cy.add { group: 'edges', data: { source: src, target: dst, label: label }}
 
   list_name = Math.floor(Math.random() * 0x100000000).toString(16)
-  meta_node = add_node list_name
+  meta_node = add_node list_name, 'metadata'
   pointers = window.pointers =
-    first: add_node 'first', meta_node.id()
-    last: add_node 'last', meta_node.id()
+    first: add_node 'first', 'metadata', meta_node.id()
+    last: add_node 'last', 'metadata', meta_node.id()
 
   {
     add_linked: () ->
