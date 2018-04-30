@@ -11,41 +11,41 @@
 #
 module.exports = (cy) ->
   n = 0
-  roots = {}
+  roots =
+    first: null
+    last: null
 
-  add_node = (id, label = null, parent = null) ->
-    label = id if label is null
-    cy.add { group: 'nodes', data: { id: id, label: label, parent: parent }}
+  add_node = (label = null, parent = null) ->
+    label = value if label is null
+    cy.add { group: 'nodes', data: { label: label, parent: parent }}
 
   add_edge = (src, dst, label = '') ->
     cy.add { group: 'edges', data: { source: src, target: dst, label: label }}
 
+  meta_node = add_node ''
+  pointers = window.pointers =
+    first: add_node 'first', meta_node.id()
+    last: add_node 'last', meta_node.id()
+
   {
     add_linked: (doubly_linked = true) ->
-      # Get (or create) the meta-node that represents the whole list.
-      list = cy.$('#list')
-      if list.length == 0
-        list = add_node 'list', ''
-        add_node 'list-first', 'first', 'list'
-        add_node 'list-last', 'last', 'list'
-
-      id = n
-      node = add_node id
+      node = add_node n
+      id = node.id()
 
       # Is this the first node?
-      if n == 0
+      if not roots.first?
         roots.first = node
-        add_edge 'list-first', id
+        add_edge pointers.first.id(), id
 
       prev = roots.last
-      if prev
+      if prev?
         prev_id = prev.id()
         add_edge prev_id, id, 'next'
         add_edge id, prev_id, 'prev' if doubly_linked
 
-      roots.last = node
-      cy.$('edge[source="list-last"]').remove()
-      add_edge 'list-last', id
+      pointers.last.connectedEdges().remove()
+      add_edge pointers.last.id(), id
 
+      roots.last = node
       n = n + 1
   }
