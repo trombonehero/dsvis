@@ -12,6 +12,8 @@ module.exports = [
       'content': 'data(id)'
       'font-size': '18pt'
       'label': 'data(label)'
+      'padding': '1em'
+      'padding-relative-to': 'width'
       'shape': 'rectangle'
       'width': '4em'
       'text-valign': 'center'
@@ -20,10 +22,13 @@ module.exports = [
       'text-outline-width': '1px'
       'text-wrap': 'wrap'
   },
+  # Compound nodes
   {
     selector: '$node > node'
     style:
       'background-opacity': 0.25
+      'compound-sizing-wrt-labels': 'include'
+      'text-valign': 'top'
   },
   {
     selector: 'edge'
