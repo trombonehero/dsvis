@@ -25,7 +25,8 @@ module.exports = (cy) ->
   add_edge = (src, dst, label = '') ->
     cy.add { group: 'edges', data: { source: src, target: dst, label: label }}
 
-  meta_node = add_node ''
+  list_name = Math.floor(Math.random() * 0x100000000).toString(16)
+  meta_node = add_node list_name
   pointers = window.pointers =
     first: add_node 'first', meta_node.id()
     last: add_node 'last', meta_node.id()
