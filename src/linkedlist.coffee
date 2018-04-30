@@ -15,8 +15,7 @@ module.exports = (cy) ->
     first: null
     last: null
 
-  add_node = (label = null, parent = null) ->
-    label = value if label is null
+  add_node = (label, parent = null) ->
     cy.add { group: 'nodes', data: { label: label, parent: parent }}
 
   add_edge = (src, dst, label = '') ->
