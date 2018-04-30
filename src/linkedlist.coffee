@@ -1,6 +1,10 @@
 #
 # Create a new linked list within a given Cytoscape canvas.
 #
+# ## Parameters:
+# `cy`::
+#   A Cytoscape graph
+#
 # ## Methods:
 #
 # `add_linked(doubly_linked = true)`::
