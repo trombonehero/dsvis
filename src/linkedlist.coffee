@@ -16,6 +16,7 @@
 #   an auto-incrementing ID and `next` [and `prev`] pointer[s] will be created.
 #
 module.exports = (cy, doubly_linked = true) ->
+  all_nodes = cy.collection()
   n = 0
   roots =
     first: null
@@ -23,13 +24,15 @@ module.exports = (cy, doubly_linked = true) ->
 
   # Add a low-level Cytoscape graph node
   add_graph_node = (label, classes, parent = null) ->
-    cy.add {
+    node = cy.add {
       group: 'nodes'
       classes: classes
       data:
         label: label
         parent: parent
     }
+    all_nodes = all_nodes.add node
+    node
 
   add_edge = (src, dst, label = '') ->
     cy.add {
@@ -80,5 +83,6 @@ module.exports = (cy, doubly_linked = true) ->
       roots.last = node
       n = n + 1
 
+    destroy: () -> all_nodes.remove()
     name: list_name
   }
