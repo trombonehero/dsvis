@@ -50,13 +50,13 @@ cy = window.cy = new cytoscape {
   style: require('./graph-style'),
 }
 
-layout = (dir = 'LR') ->
+layout = (direction = 'RIGHT') ->
   cy.layout({
     name: 'klay'
     animate: true
     nodeDimensionsIncludeLabels: true
     klay: {
-      direction: 'RIGHT'
+      direction: direction
       edgeRouting: 'SPLINES'
       edgeSpacingFactor: 0.1
       feedbackEdges: true
@@ -115,18 +115,18 @@ w2ui['dsvis'].content('left', $().w2sidebar {
     switch event.target
       when 'canvas:clear' then cy.nodes().remove()
 
-      when 'canvas:layout' then layout()
+      when 'canvas:layout' then layout('RIGHT')
 
       when 'linked-list:single' then (
         l = new linkedlist(cy, false)
         l.add_node(i) for i in [0...4]
-        layout(dir = 'LR')
+        layout('RIGHT')
       )
 
       when 'linked-list:double' then (
         l = new linkedlist(cy, true)
         l.add_node(i) for i in [0...4]
-        layout(dir = 'LR')
+        layout('RIGHT')
       )
 
       else
