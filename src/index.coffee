@@ -1,53 +1,42 @@
 require './html-style.sass'
 
-$ = require 'jquery'
-
 cytoscape = require 'cytoscape'
 require('cytoscape-klay')(cytoscape)
 
 linkedlist = require './linkedlist.coffee'
 
-GoldenLayout = require 'golden-layout'
-require 'golden-layout/src/less/goldenlayout-base.less'
-require 'golden-layout/src/less/goldenlayout-light-theme.less'
+window.$ = $ = require('jquery')
+window.w2ui = w2ui = require 'imports-loader?jQuery=jquery!exports-loader?w2ui!w2ui'
+require '../node_modules/w2ui/w2ui.css'
 
-gl = new GoldenLayout({
-  settings: {
-    hasHeaders: false,
-  },
-  content: [{
-    type: 'column',
-    content: [
-      { type: 'component', componentName: 'header', height: 5 },
-      { type: 'component', componentName: 'graph' },
-      { type: 'component', componentName: 'bottom', height: 2 },
-    ]
-  }]
-})
+window.foo = $('#ui-root').w2layout {
+  name: 'dsvis'
+  panels: [
+    {
+      type: 'top'
+      content: '<h1>Data structure visualizer</h1><div id="toolbar"></div>'
+    },
+    {
+      type: 'main'
+      resizable: true
+    }
+  ]
+}
 
-gl.on 'initialised', () ->
-  cy = window.cy = new cytoscape {
-    container: $('.graph'),
-    boxSelectionEnabled: false,
-    autounselectify: true,
-    style: require('./graph-style'),
-  }
+g = document.createElement('div')
+g.className = 'graph'
+g.style.height = '100%'
+g.style.width = '100%'
 
-  cy.resize()
+w2ui['dsvis'].content('main', g)
 
-gl.registerComponent 'header', (container, _) ->
-  container.setTitle 'Header'
-  header = container.getElement().html '<h1>Data structure visualizer</h1>'
 
-gl.registerComponent 'graph', (container, _) ->
-  container.setTitle 'Graph'
-  container.getElement().html '<div class="graph"/>'
-
-button = (label, callback) ->
-  b = document.createElement('button')
-  b.innerText = label
-  b.onclick = callback
-  b
+cy = window.cy = new cytoscape {
+  container: g,
+  boxSelectionEnabled: false,
+  autounselectify: true,
+  style: require('./graph-style'),
+}
 
 layout = (dir = 'LR') ->
   cy.layout({
@@ -67,37 +56,40 @@ layout = (dir = 'LR') ->
     }
   }).run()
 
-gl.registerComponent 'bottom', (container, _) ->
-  bottom = container.getElement()
 
-  bottom.append button 'Auto-layout graph', (ev) -> layout()
 
-  bottom.append button 'Linked list', (ev) ->
-    l = new linkedlist(cy)
-    l.add_node() for i in [0..8]
-    layout(dir = 'LR')
+$('#toolbar').w2toolbar {
+  name: 'toolbar'
+  items: [
+    {
+      type: 'menu'
+      id: 'create-new'
+      caption: 'Create new...'
+      items: [
+        {
+          text: 'Singly-linked list'
+          id: 'singly-linked-list'
+          icon: 'icon-page'
+        }
+        {
+          text: 'Doubly-linked list'
+          id: 'doubly-linked-list'
+          icon: 'icon-page'
+        }
+      ]
+    }
+    { type: 'button',  id: 'item5',  caption: 'Item 5', icon: 'fa-home' }
+  ]
 
-  b = bottom.append button 'Tree', (ev) ->
-    cy.add_node(i) for i in [0..12]
-    cy.add_edge(0, 1)
-    cy.add_edge(0, 2)
-    cy.add_edge(0, 3)
+  onClick: (ev) ->
+    switch ev.target
+      when 'create-new:singly-linked-list' then (
+        l = new linkedlist(cy, false)
+        layout(dir = 'LR')
+      )
 
-    cy.add_edge(1, 4)
-    cy.add_edge(1, 5)
-    cy.add_edge(1, 6)
-
-    cy.add_edge(2, 7)
-    cy.add_edge(2, 8)
-    cy.add_edge(2, 9)
-
-    cy.add_edge(3, 10)
-    cy.add_edge(3, 11)
-    cy.add_edge(3, 12)
-
-    layout(dir = 'TB')
-
-  gl.on 'initialised', () ->
-    cy.resize() if cy
-
-gl.init()
+      when 'create-new:doubly-linked-list' then (
+        l = new linkedlist(cy, true)
+        layout(dir = 'LR')
+      )
+}
