@@ -89,4 +89,9 @@ module.exports = [
       'compound-sizing-wrt-labels': 'include'
       'text-valign': 'top'
   },
+  {
+    selector: '$node > node.metadata'
+    style:
+      'background-color': metaColor
+  },
 ]
