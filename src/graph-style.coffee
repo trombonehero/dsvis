@@ -1,9 +1,10 @@
 metaColor = '#ffcc66'
 nodeColor = '#999999'
+nullPointerColor = '#ff3333'
 outlineColor = '#003366'
-pointerColor = '#ff9999'
+pointerColor = '#3366ff'
 textColor = 'white'
-valueColor = '#3366ff'
+valueColor = '#66cc66'
 
 module.exports = [
   {
@@ -39,6 +40,13 @@ module.exports = [
     style:
       'background-color': pointerColor
       'text-outline-color': pointerColor
+  },
+  {
+    selector: 'node.pointer[[degree = 0]]'
+    style:
+      'background-color': nullPointerColor
+      'background-opacity': 0.25
+      'text-outline-color': nullPointerColor
   },
   # Compound nodes
   {
