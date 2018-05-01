@@ -11,6 +11,7 @@ require '../node_modules/w2ui/w2ui.css'
 
 $('#ui-root').w2layout {
   name: 'dsvis'
+  onResize: (event) -> cy.resize() if cy?
   panels: [
     {
       type: 'top'
