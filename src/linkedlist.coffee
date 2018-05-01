@@ -62,19 +62,20 @@ module.exports = (cy, doubly_linked = true) ->
 
       add_graph_node n, 'value', id
 
+      node.data('next', add_graph_node('next', 'pointer', id).id())
+      if doubly_linked
+        node.data('prev', add_graph_node('prev', 'pointer', id).id())
+
       prev = roots.last
       if prev?
-        prev_id = prev.id()
-
-        next_ptr = add_graph_node 'next', 'pointer', prev_id
-        add_edge next_ptr.id(), id, 'next'
+        add_edge prev.data('next'), id, 'next'
 
         if doubly_linked
-          prev_ptr = add_graph_node 'prev', 'pointer', id
-          add_edge prev_ptr.id(), prev_id, 'prev' if doubly_linked
+          add_edge node.data('prev'), prev.id(), 'prev' if doubly_linked
 
-      pointers.last.connectedEdges().remove()
-      add_edge pointers.last.id(), id
+      if doubly_linked
+        pointers.last.connectedEdges().remove()
+        add_edge pointers.last.id(), id
 
       roots.last = node
       n = n + 1
