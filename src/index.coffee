@@ -9,7 +9,7 @@ window.$ = $ = require('jquery')
 window.w2ui = w2ui = require 'imports-loader?jQuery=jquery!exports-loader?w2ui!w2ui'
 require '../node_modules/w2ui/w2ui.css'
 
-window.foo = $('#ui-root').w2layout {
+$('#ui-root').w2layout {
   name: 'dsvis'
   panels: [
     {
