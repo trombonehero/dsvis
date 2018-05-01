@@ -31,6 +31,7 @@ $('#ui-root').w2layout {
     {
       type: 'right'
       size: 200
+      hidden: true
       resizable: true
       toolbar:
         items: [
@@ -83,6 +84,11 @@ ui.content('left', $().w2sidebar {
           text: 'Layout (TB)'
           icon: 'fas fa-angle-double-down fa-lg'
         }
+        {
+          id: 'canvas:controls:show'
+          text: 'Show controls'
+          icon: 'fas fa-list fa-lg'
+        }
       ]
     }
     {
@@ -109,7 +115,8 @@ ui.content('left', $().w2sidebar {
     w2ui.sidebar.unselect event.target
 
     switch event.target
-      when 'canvas:clear' then cy.nodes().remove()
+      when 'canvas:clear' then clear()
+      when 'canvas:controls:show' then ui.show 'right'
       when 'canvas:layout:lr' then layout('RIGHT')
       when 'canvas:layout:tb' then layout('DOWN')
 
@@ -117,17 +124,84 @@ ui.content('left', $().w2sidebar {
         l = new linkedlist(cy, false)
         l.add_node(i) for i in [0...4]
         layout('RIGHT')
+
+        createControlPanel l, 'SLL: ' + l.name
       )
 
       when 'linked-list:double' then (
         l = new linkedlist(cy, true)
         l.add_node(i) for i in [0...4]
         layout('RIGHT')
+
+        createControlPanel l, 'DLL: ' + l.name
       )
 
       else
         console.log event.target
 })
+
+controls = document.createElement 'div'
+ui.content('right', controls)
+
+
+clear = () ->
+  cy.nodes().remove()
+  while (controls.firstChild)
+    controls.removeChild controls.firstChild
+
+createControlPanel = (ds, title) ->
+  form = document.createElement 'div'
+
+  t = document.createElement 'div'
+  t.className = 'w2ui-panel-title'
+  $(t).w2toolbar {
+    name: 'controls_' + ds.name
+    items: [
+      { text: title, }
+      { type: 'spacer' }
+      {
+        type: 'button'
+        id: 'delete'
+        icon: 'fas fa-trash-alt fa-lg'
+      }
+    ]
+    onClick: (event) ->
+      if event.target == 'delete'
+        ds.destroy()
+        controls.removeChild form
+  }
+
+  form.appendChild t
+
+  fields = document.createElement 'div'
+  fields.innerHTML = '''
+    <div class="w2ui-field">
+      <label>Find:</label>
+      <div><input size="2"/></div>
+    </div>
+
+    <div class="block">
+      <b>Add node</b>
+      <div class="w2ui-field">
+        <label>Value:</label>
+        <div><input size="2"/></div>
+      </div>
+      <div class="w2ui-field">
+        <label>At:</label>
+        <div><input size="2" value="0"/></div>
+      </div>
+      <div class="w2ui-field">
+        <label></label>
+        <div><button>Add</button></div>
+      </div>
+    </div>
+    '''
+
+  form.appendChild fields
+  controls.appendChild form
+
+  ui.show('right')
+
 
 cy = window.cy = new cytoscape {
   container: g,
