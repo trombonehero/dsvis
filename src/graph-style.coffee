@@ -1,14 +1,15 @@
-primaryColor = '#3366ff'
 metaColor = '#ffcc66'
+nodeColor = '#999999'
 outlineColor = '#003366'
 pointerColor = '#ff9999'
 textColor = 'white'
+valueColor = '#3366ff'
 
 module.exports = [
   {
     selector: 'node'
     style:
-      'background-color': primaryColor
+      'background-color': valueColor
       #'border-color': outlineColor
       #'border-width': '2px'
       'color': textColor
@@ -21,7 +22,7 @@ module.exports = [
       'width': '4em'
       'text-valign': 'center'
       'text-halign': 'center'
-      'text-outline-color': primaryColor
+      'text-outline-color': valueColor
       'text-outline-width': '4px'
       'text-wrap': 'wrap'
   },
@@ -43,6 +44,7 @@ module.exports = [
   {
     selector: '$node > node'
     style:
+      'background-color': nodeColor
       'background-opacity': 0.25
       'border-style': 'dotted'
       'compound-sizing-wrt-labels': 'include'
