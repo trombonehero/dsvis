@@ -45,7 +45,9 @@ module.exports = (cy, doubly_linked = true) ->
   meta_node = add_graph_node list_name, 'metadata'
   pointers = window.pointers =
     first: add_graph_node 'first', 'pointer metadata', meta_node.id()
-    last: add_graph_node 'last', 'pointer metadata', meta_node.id()
+
+  if doubly_linked
+    pointers.last = add_graph_node 'last', 'pointer metadata', meta_node.id()
 
   {
     add_node: (value) ->
