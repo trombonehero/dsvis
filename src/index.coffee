@@ -79,7 +79,12 @@ $('#toolbar').w2toolbar {
         }
       ]
     }
-    { type: 'button',  id: 'item5',  caption: 'Item 5', icon: 'fa-home' }
+    {
+      type: 'button'
+      id: 'layout'
+      caption: 'Auto-layout'
+      icon: 'fa fa-th-large fa-lg'
+    }
   ]
 
   onClick: (ev) ->
@@ -93,4 +98,6 @@ $('#toolbar').w2toolbar {
         l = new linkedlist(cy, true)
         layout(dir = 'LR')
       )
+
+      when 'layout' then layout()
 }
