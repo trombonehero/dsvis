@@ -70,7 +70,6 @@ layout = (dir = 'LR') ->
 
 w2ui['dsvis'].content('left', $().w2sidebar {
   name: 'sidebar'
-  img: null
   nodes: [
     {
       id: 'canvas'
