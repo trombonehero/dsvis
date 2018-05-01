@@ -29,6 +29,21 @@ $('#ui-root').w2layout {
       resizable: true
     },
     {
+      type: 'right'
+      size: 200
+      resizable: true
+      toolbar:
+        items: [
+          { type: 'spacer' }
+          {
+            type: 'button'
+            id: 'close'
+            icon: 'fas fa-angle-double-right fa-lg'
+          }
+        ]
+        onClick: (event) -> this.owner.hide('right')
+    },
+    {
       type: 'bottom'
       content: 'Data structure visualizer vX.Y.Z'
       size: 2
@@ -41,8 +56,10 @@ g.className = 'graph'
 g.style.height = '100%'
 g.style.width = '100%'
 
-w2ui['dsvis'].content('main', g)
-w2ui['dsvis'].content('left', $().w2sidebar {
+ui = w2ui['dsvis']
+
+ui.content('main', g)
+ui.content('left', $().w2sidebar {
   name: 'sidebar'
   nodes: [
     {
