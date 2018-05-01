@@ -83,9 +83,14 @@ w2ui['dsvis'].content('left', $().w2sidebar {
           icon: 'fas fa-trash-alt fa-lg'
         }
         {
-          id: 'canvas:layout'
-          text: 'Layout'
-          icon: 'fas fa-th-large fa-lg'
+          id: 'canvas:layout:lr'
+          text: 'Layout (LR)'
+          icon: 'fas fa-angle-double-right fa-lg'
+        }
+        {
+          id: 'canvas:layout:tb'
+          text: 'Layout (TB)'
+          icon: 'fas fa-angle-double-down fa-lg'
         }
       ]
     }
@@ -114,8 +119,8 @@ w2ui['dsvis'].content('left', $().w2sidebar {
 
     switch event.target
       when 'canvas:clear' then cy.nodes().remove()
-
-      when 'canvas:layout' then layout('RIGHT')
+      when 'canvas:layout:lr' then layout('RIGHT')
+      when 'canvas:layout:tb' then layout('DOWN')
 
       when 'linked-list:single' then (
         l = new linkedlist(cy, false)
