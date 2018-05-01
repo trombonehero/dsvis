@@ -46,7 +46,7 @@ $('#ui-root').w2layout {
     },
     {
       type: 'bottom'
-      content: 'Data structure visualizer vX.Y.Z'
+      content: 'dsvis v' + require('../package.json').version
       size: 2
     },
   ]

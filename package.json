@@ -1,6 +1,6 @@
 {
   "name": "dsavis",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tool for visualizing data structures and algorithms",
   "private": true,
   "main": "index.js",
