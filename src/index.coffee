@@ -63,18 +63,19 @@ $('#toolbar').w2toolbar {
   items: [
     {
       type: 'menu'
+      icon: 'fas fa-plus-square fa-lg'
       id: 'create-new'
       caption: 'Create new...'
       items: [
         {
           text: 'Singly-linked list'
           id: 'singly-linked-list'
-          icon: 'icon-page'
+          icon: 'fas fa-arrow-right fa-lg'
         }
         {
           text: 'Doubly-linked list'
           id: 'doubly-linked-list'
-          icon: 'icon-page'
+          icon: 'fas fa-exchange-alt fa-lg'
         }
       ]
     }
