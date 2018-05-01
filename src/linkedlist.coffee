@@ -46,7 +46,7 @@ module.exports = (cy, doubly_linked = true) ->
 
   list_name = Math.floor(Math.random() * 0x100000000).toString(16)
   meta_node = add_graph_node list_name, 'metadata'
-  pointers = window.pointers =
+  pointers =
     first: add_graph_node 'first', 'pointer metadata', meta_node.id()
 
   if doubly_linked
