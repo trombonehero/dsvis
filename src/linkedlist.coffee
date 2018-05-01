@@ -79,4 +79,6 @@ module.exports = (cy, doubly_linked = true) ->
 
       roots.last = node
       n = n + 1
+
+    name: list_name
   }
