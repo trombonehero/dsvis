@@ -35,6 +35,9 @@
   "dependencies": {
     "cytoscape": "^3.2.11",
     "cytoscape-klay": "^3.1.1",
-    "jquery": "^3.3.1"
+    "file-loader": "^1.1.11",
+    "jquery": "^3.3.1",
+    "svg-inline-loader": "^0.8.0",
+    "url-loader": "^1.0.1"
   }
 }
