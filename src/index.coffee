@@ -41,33 +41,6 @@ g.style.height = '100%'
 g.style.width = '100%'
 
 w2ui['dsvis'].content('main', g)
-
-
-cy = window.cy = new cytoscape {
-  container: g,
-  boxSelectionEnabled: false,
-  autounselectify: true,
-  style: require('./graph-style'),
-}
-
-layout = (direction = 'RIGHT') ->
-  cy.layout({
-    name: 'klay'
-    animate: true
-    nodeDimensionsIncludeLabels: true
-    klay: {
-      direction: direction
-      edgeRouting: 'SPLINES'
-      edgeSpacingFactor: 0.1
-      feedbackEdges: true
-      cycleBreaking: 'INTERACTIVE'
-      inLayerSpacingFactor: 0.5
-      layoutHierarchy: true
-      nodePlacement: 'SIMPLE'
-      thoroughness: 9
-    }
-  }).run()
-
 w2ui['dsvis'].content('left', $().w2sidebar {
   name: 'sidebar'
   nodes: [
@@ -137,3 +110,28 @@ w2ui['dsvis'].content('left', $().w2sidebar {
       else
         console.log event.target
 })
+
+cy = window.cy = new cytoscape {
+  container: g,
+  boxSelectionEnabled: false,
+  autounselectify: true,
+  style: require('./graph-style'),
+}
+
+layout = (direction = 'RIGHT') ->
+  cy.layout({
+    name: 'klay'
+    animate: true
+    nodeDimensionsIncludeLabels: true
+    klay: {
+      direction: direction
+      edgeRouting: 'SPLINES'
+      edgeSpacingFactor: 0.1
+      feedbackEdges: true
+      cycleBreaking: 'INTERACTIVE'
+      inLayerSpacingFactor: 0.5
+      layoutHierarchy: true
+      nodePlacement: 'SIMPLE'
+      thoroughness: 9
+    }
+  }).run()
