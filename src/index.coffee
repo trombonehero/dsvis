@@ -14,8 +14,14 @@ window.foo = $('#ui-root').w2layout {
   panels: [
     {
       type: 'top'
-      content: '<h1>Data structure visualizer</h1><div id="toolbar"></div>'
-      size: 100
+      content: '<h1>Data structure visualizer</h1>'
+      size: 50
+    },
+    {
+      type: 'left'
+      size: 150
+      resizable: true
+      content: 'left'
     },
     {
       type: 'main'
@@ -62,48 +68,68 @@ layout = (dir = 'LR') ->
     }
   }).run()
 
-
-
-$('#toolbar').w2toolbar {
-  name: 'toolbar'
-  items: [
+w2ui['dsvis'].content('left', $().w2sidebar {
+  name: 'sidebar'
+  img: null
+  nodes: [
     {
-      type: 'menu'
-      icon: 'fas fa-plus-square fa-lg'
-      id: 'create-new'
-      caption: 'Create new...'
-      items: [
+      id: 'canvas'
+      text: 'Canvas'
+      expanded: true
+      group: true
+      nodes: [
         {
-          text: 'Singly-linked list'
-          id: 'singly-linked-list'
-          icon: 'fas fa-arrow-right fa-lg'
+          id: 'canvas:clear'
+          text: 'Clear'
+          icon: 'fas fa-trash-alt fa-lg'
         }
         {
-          text: 'Doubly-linked list'
-          id: 'doubly-linked-list'
-          icon: 'fas fa-exchange-alt fa-lg'
+          id: 'canvas:layout'
+          text: 'Layout'
+          icon: 'fas fa-th-large fa-lg'
         }
       ]
     }
     {
-      type: 'button'
-      id: 'layout'
-      caption: 'Auto-layout'
-      icon: 'fa fa-th-large fa-lg'
+      id: 'linked-list'
+      text: 'Linked List'
+      expanded: true
+      group: true
+      nodes: [
+        {
+          id: 'linked-list:single'
+          text: 'Single'
+          icon: 'fas fa-arrow-right fa-lg'
+        }
+        {
+          id: 'linked-list:double',
+          text: 'Double'
+          icon: 'fas fa-exchange-alt fa-lg'
+        }
+      ]
     }
   ]
 
-  onClick: (ev) ->
-    switch ev.target
-      when 'create-new:singly-linked-list' then (
+  onClick: (event) ->
+    w2ui.sidebar.unselect event.target
+
+    switch event.target
+      when 'canvas:clear' then cy.nodes().remove()
+
+      when 'canvas:layout' then layout()
+
+      when 'linked-list:single' then (
         l = new linkedlist(cy, false)
+        l.add_node(i) for i in [0...4]
         layout(dir = 'LR')
       )
 
-      when 'create-new:doubly-linked-list' then (
+      when 'linked-list:double' then (
         l = new linkedlist(cy, true)
+        l.add_node(i) for i in [0...4]
         layout(dir = 'LR')
       )
 
-      when 'layout' then layout()
-}
+      else
+        console.log event.target
+})
