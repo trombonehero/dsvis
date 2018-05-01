@@ -15,11 +15,17 @@ window.foo = $('#ui-root').w2layout {
     {
       type: 'top'
       content: '<h1>Data structure visualizer</h1><div id="toolbar"></div>'
+      size: 100
     },
     {
       type: 'main'
       resizable: true
-    }
+    },
+    {
+      type: 'bottom'
+      content: 'Data structure visualizer vX.Y.Z'
+      size: 2
+    },
   ]
 }
 
