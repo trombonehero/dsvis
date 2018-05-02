@@ -3,7 +3,7 @@ require './html-style.sass'
 cytoscape = require 'cytoscape'
 require('cytoscape-klay')(cytoscape)
 
-linkedlist = require './linkedlist.coffee'
+LinkedList = require './LinkedList'
 
 window.$ = $ = require('jquery')
 window.w2ui = w2ui = require 'imports-loader?jQuery=jquery!exports-loader?w2ui!w2ui'
@@ -121,7 +121,7 @@ ui.content('left', $().w2sidebar {
       when 'canvas:layout:tb' then layout('DOWN')
 
       when 'linked-list:single' then (
-        l = new linkedlist(cy, false)
+        l = new LinkedList(cy, false)
         l.add_node(i) for i in [0...4]
         layout('RIGHT')
 
@@ -129,7 +129,7 @@ ui.content('left', $().w2sidebar {
       )
 
       when 'linked-list:double' then (
-        l = new linkedlist(cy, true)
+        l = new LinkedList(cy, true)
         l.add_node(i) for i in [0...4]
         layout('RIGHT')
 
